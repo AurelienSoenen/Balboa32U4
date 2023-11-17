@@ -2,6 +2,23 @@
 
 addpath('real_data')  % Add path to the folder containing the data file
 
+mr = 0.316;                % body part mass [kg]
+mw = 2 * 0.021;            % wheel(*2) mass [kg]
+L = 23.0 * 1e-3;           % position of COM [m]
+R = 40 * 1e-3;             % radius of wheel [m]
+
+I = 444.43 * 1e-6;         % inertia of body part [kg*m^2]
+Iw = 2 * 26.89 * 1e-6;     % inertia of wheel [kg*m^2]
+
+Br = 0.00;                 % rolling damping ratio [N*m/(rad/s)]
+Bm = 0.00;                 % bearing damping ratio [N*m/(rad/s)]
+
+g = 9.81;                  % gravity [m/s^2]
+
+% Read data from CSV file
+FILE = 'real_data/Test_Balboa_20231031_15h18.csv';
+m = dlmread(FILE, ',', 1, 0);
+
 % Sampling time
 timestep = 10 * 1e-3;                 % [s]
 n_steps = size(m, 1);
@@ -9,9 +26,7 @@ max_time = (n_steps - 1) * timestep;  % [s]
 start = 0;
 t_list = linspace(start, max_time, n_steps);
 
-% Read data from CSV file
-FILE = 'real_data/Test_Balboa_20231031_15h18.csv';
-m = dlmread(FILE, ',', 1, 0);
+
 
 v_list = (m(:, 1) / 1000.0) .* (m(:, 2) / 400.0);  % [V]
 
@@ -21,7 +36,7 @@ theta_dot_list = deg2rad(m(:, 6) / 1000.0);  % [rad / s]
 phi_dot_list = m(:, 4) / 4.0 / 1000.0 / R;   % [m / s]
 
 % Initial state = [ϕ, Θ, ϕ_dot, Θ_dot]
-state0 = [phi_list(idx); theta_list(idx); phi_dot_list(idx); theta_dot_list(idx)];
+state0 = [phi_list(1); theta_list(1); phi_dot_list(1); theta_dot_list(1)];
 
 % Simulate the Balboa system
 sol = simulate_balboa(state0, t_list, @controller);
