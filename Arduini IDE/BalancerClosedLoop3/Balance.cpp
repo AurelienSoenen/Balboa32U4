@@ -11,7 +11,6 @@ int32_t distanceRight;
 float speedRight;
 int32_t driveRight;
 int16_t motorSpeed;
-int16_t motorSpeedOffset;
 bool isBalancingStatus = false;
 bool balanceUpdateDelayedStatus;
 
@@ -142,8 +141,8 @@ void balance()
   // Need for different speeds for the 2 wheels as they do not exert 
   // the same power depending on the direction of rotation
   motors.setSpeeds(
-    motorSpeedLeft + distanceDiff * DISTANCE_DIFF_RESPONSE / 100+motorSpeedOffset,
-    motorSpeedRight - distanceDiff * DISTANCE_DIFF_RESPONSE / 100+motorSpeedOffset);
+    motorSpeedLeft + distanceDiff * DISTANCE_DIFF_RESPONSE / 100,
+    motorSpeedRight - distanceDiff * DISTANCE_DIFF_RESPONSE / 100);
 
 }
 
