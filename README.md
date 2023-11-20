@@ -1,7 +1,5 @@
 # Balboa
  
-In this repository, there are 3 files.
-
 
 ### simu_balboa.m and simu_balboa.py: 
 
@@ -12,3 +10,7 @@ Both documents compile the same algorithm, one in matlab, the other in python. T
 ### respons_balboa.m : 
 
 -> compiles with the same equation the response of the balboa given an initial state.
+
+### Arduino IDE Folder:
+
+-> Different files to implement the balancing robot with physical equations. Mainly the balance() function is modified compared to the original code.
