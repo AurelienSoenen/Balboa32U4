@@ -95,10 +95,10 @@ const int32_t START_BALANCING_ANGLE = 4500;
 const int32_t STOP_BALANCING_ANGLE = 6000;
 
 // New parameters
-const float K_tau = 48.39;
+const float K_tau = 48.39/1000.0;
 const float K = 0.3085;
 const float Ra = 4.0;
-const float alpha = 8/400.0;
+const float s2v = 8/400.0;
 const float R = 40.0; //[mm]
 
 // These variables will be accessible from your sketch.
