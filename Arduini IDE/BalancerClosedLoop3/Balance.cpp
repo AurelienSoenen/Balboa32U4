@@ -87,27 +87,27 @@ void balance()
 
 
   // Cst to try to find good range of speed
-  int32_t spdFct = 10;
+  int32_t spdFct = 1;
 
   // Controller for left wheel
-  float phiLeft       = distanceLeft / R;        //[Rad] = [mm] / [mm]                  -> Estimated range: [-3,3]
-  float thetaLeft     = angle / 5730;            //[Rad] = [100deg] / [100deg/Rad]      -> Estimated range: [-1,1]
-  float phi_dotLeft   = speedLeft / R;           //[rad/s] = [mm/s] / [mm]              -> Estimated range: [-20,20]
-  float theta_dotLeft = angleRate / 57.296;      //[rad/s] = [deg/s] / [deg/Rad]        -> Estimated range: [-4,4] 
+  float phiLeft       = distanceLeft / R;        //[Rad] = [mm] / [mm]                  -> Measured range: [-3,3]
+  float thetaLeft     = angle / 5730;            //[Rad] = [100deg] / [100deg/Rad]      -> Measured range: [-1,1]
+  float phi_dotLeft   = speedLeft / R;           //[rad/s] = [mm/s] / [mm]              -> Measured range: [-20,20]
+  float theta_dotLeft = angleRate / 57.296;      //[rad/s] = [deg/s] / [deg/Rad]        -> Measured range: [-4,4] 
 
-  float TorqueLeft = 1.3 * phiLeft - 4.6 * thetaLeft - 0.15 * phi_dotLeft - 0.23 * theta_dotLeft; // Not sure about those params -> Range: [-0.7,0.7]
+  float TorqueLeft = 1.3 * phiLeft - 4.6 * thetaLeft - 0.15 * phi_dotLeft - 0.23 * theta_dotLeft; // Not sure about those params -> Measured range: [-0.7,0.7]
   
-  int32_t motorSpeedLeft = -round(spdFct * Ra/K_tau * s2v * (TorqueLeft + K_tau/Ra*K * speedLeft) );
+  int32_t motorSpeedLeft = -round(spdFct * Ra/K_tau / alpha * (TorqueLeft + K_tau/Ra*K * speedLeft) ); // With spdFct = 1 -> -> Measured range: [-5,5]
 
   // Controller for right wheel
-  float phiRight       = distanceRight / R;      //[Rad] = [mm] / [mm]                  -> Estimated range: [-3,3]
-  float thetaRight     = angle / 5730;           //[Rad] = [100deg] / [100deg/Rad]      -> Estimated range: [-1,1]
-  float phi_dotRight   = speedRight / R;         //[rad/s] = [mm/s] / [mm]              -> Estimated range: [-20,20]
-  float theta_dotRight = angleRate / 57.296;     //[rad/s] = [deg/s] / [deg/Rad]        -> Estimated range: [-4,4] 
+  float phiRight       = distanceRight / R;      //[Rad] = [mm] / [mm]                  -> Measured range: [-3,3]
+  float thetaRight     = angle / 5730;           //[Rad] = [100deg] / [100deg/Rad]      -> Measured range: [-1,1]
+  float phi_dotRight   = speedRight / R;         //[rad/s] = [mm/s] / [mm]              -> Measured range: [-20,20]
+  float theta_dotRight = angleRate / 57.296;     //[rad/s] = [deg/s] / [deg/Rad]        -> Measured range: [-4,4] 
 
-  float TorqueRight = 1.3 * phiRight - 4.6 * thetaRight - 0.15 * phi_dotRight - 0.23 * theta_dotRight; // Not sure about those params -> Range: [-0.7,0.7]
+  float TorqueRight = 1.3 * phiRight - 4.6 * thetaRight - 0.15 * phi_dotRight - 0.23 * theta_dotRight; // Not sure about those params -> Measured range: [-0.7,0.7]
   
-  int32_t motorSpeedRight = -round(spdFct * Ra/K_tau * s2v * (TorqueRight + K_tau/Ra*K * speedRight) );
+  int32_t motorSpeedRight = -round(spdFct * Ra/K_tau / alpha * (TorqueRight + K_tau/Ra*K * speedRight) ); // With spdFct = 1 -> -> Measured range: [-5,5]
 
   char report1[300];
   snprintf(report1, sizeof(report1), "motorSpeedLeft : %6d",
