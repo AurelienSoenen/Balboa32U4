@@ -1,4 +1,4 @@
-%Parameters from Paper
+%Parameters from Balboa
 mr = 0.316;                         %body part mass [kg]
 mw = 2 * 0.021 ;                    %wheel(*2) mass [kg]
 L  = 23.0 * 1e-3;                   %position of COM [m]
@@ -9,7 +9,7 @@ Iw = 2 * 26.89 * 1e-6;              %inertia of wheel [kg*m^2]
 Br=0.01;                            %rolling damping ratio [N*m/(rad/s)]
 Bm=0.01;                            %bearing damping ratio [N*m/(rad/s)]
 
-R=16*10^(-3);                       %radius of wheel [m]
+R=40*10^(-3);                       %radius of wheel [m]
 g=9.81;                             %gravity [m/s^2]
 
     
@@ -26,6 +26,8 @@ B=[0; 0; E\H];                                      %input matrix
 C=[R 0 0 0; 0 1 0 0];                                    %output matrix
 D=0;
 sys1=ss(A,B,C,D);
+
+
 G1=tf(sys1);                           %transfer function of sys1
 G1zp=zpk(sys1);                        %Gain/pole/zero representation of sys1
 
@@ -35,8 +37,7 @@ xweight=eye(4);                                 %weighting matrix Q
 uweight=1;                                      %weighting matrix R
 K=-lqr(A,B,xweight,uweight);                    %gain matrix
 sys1_lqr=ss(A+B*K,B,C,D);                       %close-loop system
-initial(sys1_lqr, [0; 0.17; 0; 0]);             %free response
-    
+initial(sys1_lqr, [0; 0.17; 0; 0]);             %free response  
 %controllability and observability check for sys1
 Cont=[B A*B A*A*B A*A*A*B];
 rank(Cont);
