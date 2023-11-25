@@ -13,6 +13,7 @@ int32_t driveRight;
 int16_t motorSpeed;
 bool isBalancingStatus = false;
 bool balanceUpdateDelayedStatus;
+bool new variable;
 
 bool isBalancing()
 {
@@ -97,7 +98,7 @@ void balance()
 
   float TorqueLeft = 1.3 * phiLeft - 4.6 * thetaLeft - 0.15 * phi_dotLeft - 0.23 * theta_dotLeft; // Not sure about those params -> Measured range: [-0.7,0.7]
   
-  int32_t motorSpeedLeft = 0*round(spdFct * Ra/K_tau / s2v * (TorqueLeft - K_tau/Ra*K * phi_dotLeft) ); // With spdFct = 1 -> -> Measured range: [-5,5]
+  int32_t motorSpeedLeft = round(spdFct * Ra/K_tau / s2v * (TorqueLeft - K_tau/Ra*K * phi_dotLeft) ); // With spdFct = 1 -> -> Measured range: [-5,5]
 
   // Controller for right wheel
   float phiRight       = distanceRight / R;      //[Rad] = [mm] / [mm]                  -> Measured range: [-3,3]
@@ -107,7 +108,7 @@ void balance()
 
   float TorqueRight = 1.3 * phiRight - 4.6 * thetaRight - 0.15 * phi_dotRight - 0.23 * theta_dotRight; // Not sure about those params -> Measured range: [-0.7,0.7]
   
-  int32_t motorSpeedRight = 0*round(spdFct * Ra/K_tau / s2v * (TorqueRight - K_tau/Ra*K * phi_dotRight) ); // With spdFct = 1 -> -> Measured range: [-5,5]
+  int32_t motorSpeedRight = round(spdFct * Ra/K_tau / s2v * (TorqueRight - K_tau/Ra*K * phi_dotRight) ); // With spdFct = 1 -> -> Measured range: [-5,5]
 
   char report1[300];
   snprintf(report1, sizeof(report1), "distanceLeft : %6d",
