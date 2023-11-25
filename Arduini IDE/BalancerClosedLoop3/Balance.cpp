@@ -13,7 +13,6 @@ int32_t driveRight;
 int16_t motorSpeed;
 bool isBalancingStatus = false;
 bool balanceUpdateDelayedStatus;
-bool new variable;
 
 bool isBalancing()
 {
