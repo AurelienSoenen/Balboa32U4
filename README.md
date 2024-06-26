@@ -1,16 +1,35 @@
-# Balboa
- 
+# Balboa 32U4
 
-### simu_balboa.m and simu_balboa.py: 
+## BalancerLinearController Folder
 
-Both documents compile the same algorithm, one in matlab, the other in python. The python code compiles much faster and is more optimised.
+This folder contains three files essential for stabilizing the Balboa 32U4 robot: `BalancerLinearController.ino`, `Balance.cpp`, and `Balance.h`.
 
--> It simulates the movement of the Balboa from a list of voltages and compares it with the real data. In the folder plot you can find the results of the algorithm.
+### Functionality
 
-### respons_balboa.m : 
+This code is designed to stabilize the Balboa 32U4 in various configurations:
 
--> compiles with the same equation the response of the balboa given an initial state.
+1. **Initial Positioning**: If the Balboa is positioned at an angle of less than 5 degrees to the vertical.
+2. **Button B Press**: When button B is pressed while the robot is lying down, the Balboa initializes its sensors, moves into a vertical position, and stabilizes itself.
 
-### Arduino IDE Folder:
+### Configuration Changes
 
--> Different files to implement the balancing robot with physical equations. Mainly the balance() function is modified compared to the original code.
+You can change the configuration by pressing buttons A and C:
+- **Button A**: Increases the configuration.
+- **Button C**: Decreases the configuration.
+
+#### Configurations
+
+1. **First Configuration**: 
+   - The Balboa stabilizes with a medium-response controller.
+   - It follows a specific reference trajectory, moving the robot from position A to position B and back to position A.
+
+2. **Second Configuration**: 
+   - The Balboa stabilizes with a fast-response controller.
+   - After 5 seconds, Gaussian perturbations are added to perform data-driven control searches.
+
+3. **Third Configuration**: 
+   - The Balboa stabilizes with a slow-response controller. 
+
+### Usage
+
+To use this code, upload the `BalancerLinearController.ino` file to your Balboa 32U4. Ensure that `Balance.cpp` and `Balance.h` are in the same directory. Use the buttons on the Balboa to select and switch between configurations as described above.
