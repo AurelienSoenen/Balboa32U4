@@ -2,7 +2,7 @@
 
 ## BalancerLinearController Folder
 
-This folder contains three files essential for stabilizing the Balboa 32U4 robot: `BalancerLinearController.ino`, `Balance.cpp`, and `Balance.h`..
+This folder contains three files essential for stabilizing the Balboa 32U4 robot: `BalancerLinearController.ino`, `Balance.cpp`, and `Balance.h`.
 
 ### Functionality
 
